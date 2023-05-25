@@ -17,31 +17,41 @@ public class SlingController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // getting rigidbody component and attaching it to the player
         rigidBody = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // mouse button down logic
         if (Input.GetMouseButtonDown(0))
         {
+            // programming the start point of the click
             startPoint = cam.ScreenToWorldPoint(Input.mousePosition);
             startPoint.z = 15f;
         }
 
+        // mouse button held logic
         if (Input.GetMouseButton(0))
         {
+            // calculating the current point to which the mouse is being dragged down to
+            // don't need z value (only on the xy plane)
             Vector3 currentPoint = cam.ScreenToWorldPoint(Input.mousePosition);
             currentPoint.z = 15f;
         }
 
+        // mouse button release logic
         if (Input.GetMouseButtonUp(0))
         {
+            // calculating the end point
             endPoint = cam.ScreenToWorldPoint(Input.mousePosition);
             endPoint.z = 15f;
 
+            // force which will be applied based on how much the user has dragged the mouse
             force = new Vector3(Mathf.Clamp(startPoint.x - endPoint.x, minPower.x, maxPower.x), Mathf.Clamp(startPoint.y - endPoint.y, minPower.y, maxPower.y));
 
+            // using the rigidbody we add an impulse force
             rigidBody.AddForce(force * power, ForceMode2D.Impulse);          
         }
     }

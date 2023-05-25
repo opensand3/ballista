@@ -14,6 +14,7 @@ public class SmoothCameraFollow : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        // using Vector3.SmoothDamp function we are moving the camera's position to the move position which is created
         Vector3 movePosition = target.position + offset;
         transform.position = Vector3.SmoothDamp(transform.position, movePosition, ref velocity, damping);
     }
