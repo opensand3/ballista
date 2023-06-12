@@ -19,33 +19,45 @@ public class SlingController : MonoBehaviour
     {
         // getting rigidbody component and attaching it to the player
         rigidBody = GetComponent<Rigidbody2D>();
+
+        return;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.touchCount == 0)
+        {
+            return;
+        }
+
+        Touch touch = Input.GetTouch(0);
+        Vector2 touchPos = touch.position;
+        Vector3 touchPos3 = new Vector3(touchPos.x, touchPos.y);
+        Debug.Log(touchPos3);
+
         // mouse button down logic
-        if (Input.GetMouseButtonDown(0))
+        if (touch.phase == TouchPhase.Began)
         {
             // programming the start point of the click
-            startPoint = cam.ScreenToWorldPoint(Input.mousePosition);
+            startPoint = cam.ScreenToWorldPoint(touchPos3);
             startPoint.z = 15f;
         }
 
         // mouse button held logic
-        if (Input.GetMouseButton(0))
+        if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
         {
             // calculating the current point to which the mouse is being dragged down to
             // don't need z value (only on the xy plane)
-            Vector3 currentPoint = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 currentPoint = cam.ScreenToWorldPoint(touchPos3);
             currentPoint.z = 15f;
         }
 
         // mouse button release logic
-        if (Input.GetMouseButtonUp(0))
+        if (touch.phase == TouchPhase.Ended)
         {
             // calculating the end point
-            endPoint = cam.ScreenToWorldPoint(Input.mousePosition);
+            endPoint = cam.ScreenToWorldPoint(touchPos3);
             endPoint.z = 15f;
 
             // force which will be applied based on how much the user has dragged the mouse
@@ -56,3 +68,14 @@ public class SlingController : MonoBehaviour
         }
     }
 }
+
+/*
+if (touch.phase == TouchPhase.Moved && touch.phase == TouchPhase.Stationary)
+if (true && touch.phase == TouchPhase.Stationary)
+if (true && false)
+if (false)
+
+
+
+
+*/
