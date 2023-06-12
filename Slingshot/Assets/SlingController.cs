@@ -19,8 +19,6 @@ public class SlingController : MonoBehaviour
     {
         // getting rigidbody component and attaching it to the player
         rigidBody = GetComponent<Rigidbody2D>();
-
-        return;
     }
 
     // Update is called once per frame
@@ -34,7 +32,7 @@ public class SlingController : MonoBehaviour
         Touch touch = Input.GetTouch(0);
         Vector2 touchPos = touch.position;
         Vector3 touchPos3 = new Vector3(touchPos.x, touchPos.y);
-        Debug.Log(touchPos3);
+
 
         // mouse button down logic
         if (touch.phase == TouchPhase.Began)
@@ -68,14 +66,3 @@ public class SlingController : MonoBehaviour
         }
     }
 }
-
-/*
-if (touch.phase == TouchPhase.Moved && touch.phase == TouchPhase.Stationary)
-if (true && touch.phase == TouchPhase.Stationary)
-if (true && false)
-if (false)
-
-
-
-
-*/
